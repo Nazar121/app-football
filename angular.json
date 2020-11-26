@@ -28,8 +28,13 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/scss/index.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/scss"
+              ]
+            },
             "scripts": []
           },
           "configurations": {
@@ -92,7 +97,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/scss/index.scss"
             ],
             "scripts": []
           }
@@ -123,6 +128,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "app-football"
+    }
+  },
+  "defaultProject": "app-football",
+  "cli": {
+    "analytics": "6717bc49-661a-477b-8090-e45063d4a9b8"
+  }
 }
