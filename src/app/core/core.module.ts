@@ -4,8 +4,15 @@ import { CommonModule } from '@angular/common';
 // Modules
 import { SharedModule } from '@app/modules/shared/shared.module';
 
+// Guards
+import { LeagueGuard } from './guards/league.guard';
+
 const modules = [
   SharedModule
+];
+
+const guards = [
+  LeagueGuard
 ];
 
 @NgModule({
@@ -16,6 +23,9 @@ const modules = [
   ],
   exports: [
     ...modules
+  ],
+  providers: [
+    ...guards
   ]
 })
 export class CoreModule {
