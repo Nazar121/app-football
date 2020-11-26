@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-// Modules
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MaterialModule } from './modules/material/material.module';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 const modules = [
-  FormsModule,
-  ReactiveFormsModule,
-  MaterialModule
+  MatButtonModule,
+  MatIconModule
 ];
 
 @NgModule({
@@ -21,4 +19,4 @@ const modules = [
     ...modules
   ]
 })
-export class SharedModule { }
+export class MaterialModule { }
