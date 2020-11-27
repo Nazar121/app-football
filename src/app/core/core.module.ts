@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 
 // Modules
 import { SharedModule } from '@app/modules/shared/shared.module';
+import { CoreStoreModule } from './core-store/core-store.module';
 
 // Guards
 import { LeagueGuard } from './guards/league.guard';
 
 const modules = [
-  SharedModule
+  SharedModule,
+  CoreStoreModule
 ];
 
 const guards = [
