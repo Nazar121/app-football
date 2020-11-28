@@ -1,0 +1,76 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+.theme-english-premier-league {
+    $primary-color: (
+        50: #eee1ea,
+        100: #d6b3cc,
+        200: #bb82aa,
+        300: #9e538a,
+        400: #8a3274,
+        500: #760f60,
+        600: #6c0b5c,
+        700: #5e0455,
+        800: #50024c,
+        900: #37003c,
+        A100: #ffffff,
+        A200: #e9e7ff,
+        A400: #b9b4ff,
+        A700: #a29bff,
+        contrast: (
+            50: #000000,
+            100: #000000,
+            200: #000000,
+            300: #000000,
+            400: #000000,
+            500: #ffffff,
+            600: #ffffff,
+            700: #ffffff,
+            800: #ffffff,
+            900: #ffffff,
+            A100: #000000,
+            A200: #000000,
+            A400: #000000,
+            A700: #000000,
+        )
+    );
+
+    $accent-color: (
+        50: #ffe4ee,
+        100: #febad4,
+        200: #ff8cb7,
+        300: #ff599a,
+        400: #ff2882,
+        500: #ff0069,
+        600: #ee0067,
+        700: #d70062,
+        800: #c2005f,
+        900: #9b0059,
+        A100: #ffffff,
+        A200: #e9e7ff,
+        A400: #b9b4ff,
+        A700: #a29bff,
+        contrast: (
+            50: #000000,
+            100: #000000,
+            200: #000000,
+            300: #000000,
+            400: #ffffff,
+            500: #ffffff,
+            600: #ffffff,
+            700: #ffffff,
+            800: #ffffff,
+            900: #ffffff,
+            A100: #000000,
+            A200: #000000,
+            A400: #000000,
+            A700: #000000,
+        )
+    );
+
+    $primary: mat-palette($primary-color, 900);
+    $accent:  mat-palette($accent-color, 400);
+    $warn:  mat-palette($mat-red);
+    $theme: mat-light-theme($primary, $accent, $warn);
+    @include angular-material-theme($theme);
+}

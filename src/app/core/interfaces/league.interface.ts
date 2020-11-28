@@ -1,6 +1,7 @@
 export interface LeagueInfo {
     id: number;
     routeLeagueName: string;
+    themeClassName: string;
     name: string;
     country: string;
     logo: string;

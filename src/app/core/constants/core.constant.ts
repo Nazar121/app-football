@@ -11,6 +11,7 @@ export class CoreConstant {
         {
             id: 39,
             routeLeagueName: this.ROUTE_LEAGUE_NAME_LIST.englishPremierLeague,
+            themeClassName: `theme-${this.ROUTE_LEAGUE_NAME_LIST.englishPremierLeague}`,
             name: 'Premier League',
             country: 'England',
             logo: 'https://media.api-sports.io/football/leagues/39.png',

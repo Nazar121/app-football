@@ -1,4 +1,4 @@
-<div class="league">
+<div class="league" *ngIf="(leagueInfo$ | async) as leagueInfo"  [ngClass]="leagueInfo.themeClassName">
     <app-league-header ></app-league-header>
 
     <div class="league-container">
