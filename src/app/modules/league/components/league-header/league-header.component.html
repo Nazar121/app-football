@@ -1,0 +1,36 @@
+<header class="league-header"  [ngClass]="{'full-screen': !mobileMenu}">
+    <section class="main-navigation">
+        <a class="logo-name" *ngIf="(leagueInfo$ | async) as leagueInfo">
+            <div class="logo-block">
+                <img [src]="leagueInfo.logo" alt="logo">
+            </div>
+            <div class="name">{{leagueInfo.name}}</div>
+        </a>
+
+        <ng-container *ngTemplateOutlet="nav"></ng-container>
+        <ng-container *ngTemplateOutlet="backBtn"></ng-container>
+        <button mat-icon-button class="menu-btn" [ngClass]="{'active': !mobileMenu}" (click)="toggleMobileMenu()">
+            <mat-icon>{{(mobileMenu) ? 'menu' : 'close'}}</mat-icon>
+        </button>
+    </section>
+
+    <section class="mobile-navigation" *ngIf="!mobileMenu">
+        <ng-container *ngTemplateOutlet="nav"></ng-container>
+        <ng-container *ngTemplateOutlet="backBtn"></ng-container>
+    </section>
+</header>
+
+<!-- Templates -->
+<ng-template #nav>
+    <nav class="nav">
+        <a matRipple>Home</a>
+        <a matRipple>Tables</a>
+        <a matRipple>Clubs</a>
+    </nav>
+</ng-template>
+
+<ng-template #backBtn>
+    <button mat-icon-button class="back-btn active" #tooltip="matTooltip" matTooltip="Go Back">
+        <mat-icon>exit_to_app</mat-icon>
+    </button>
+</ng-template>

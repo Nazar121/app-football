@@ -1,0 +1,190 @@
+$headerLogoSize: 100px;
+
+.league-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 20px 0;
+    font-size: 1.1rem;
+    font-weight: 400;
+    background-color: white;
+
+    &.full-screen {
+        bottom: 0;
+        height: 100%;
+        z-index: 10;
+    }
+
+    button {
+        // Reset Mat styles
+        width: auto;
+        height: auto;
+        line-height: normal;
+        border-radius: 0;
+        // My styles
+        padding: 0 15px;
+        transition: 0.5s;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    mat-icon {
+        width: auto;
+        height: auto;
+        font-size: 30px;
+    }
+
+    .active {
+        background-color: #ff2882 !important;
+        color: white !important;
+    }
+
+    .nav {
+        display: flex;
+        flex: 1;
+
+        a {
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            transition: 0.3s linear;
+            cursor: pointer;
+
+            &:hover {
+                @extend .active;
+            }
+        }
+    }
+
+    .back-btn {
+        display: flex;
+        align-items: center;
+        border-left: 1px solid white;
+    }
+
+    .main-navigation {
+        min-height: 60px;
+        position: relative;
+        display: flex;
+        align-items: stretch;
+        background-color: #37003c;
+        color: white;
+
+        .logo-name {
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+            font-weight: bold;
+            border-right: 1px solid white;
+            cursor: pointer;
+
+            .name {
+                max-width: 100px;
+                padding: 0 15px;
+            }
+
+            .logo-block {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+                width: $headerLogoSize;
+                position: relative;
+
+                img {
+                    display: block;
+                    width: $headerLogoSize;
+                    height: $headerLogoSize;
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    background-color: white;
+                    border-top-right-radius: 50%;
+                    border-bottom-right-radius: 50%;
+                }
+            }
+        }
+
+        .menu-btn {
+            display: none;
+            // display: flex;
+            align-items: center;
+            border-left: 1px solid white;
+        }
+    }
+
+    .mobile-navigation {
+        display: none;
+        color: #37003c;
+    }
+}
+
+@media (max-width: 767.98px) {
+    $headerLogoSize: 50px;
+
+    .league-header {
+        padding: 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+
+        .main-navigation {
+            justify-content: space-between;
+            
+            .nav, .back-btn {
+                display: none;
+            }
+
+            .logo-name {
+
+                .logo-block {
+                    width: auto;
+                    padding-left: 15px;
+                    
+                    img {
+                        position: static;
+                        transform: none;
+                        width: $headerLogoSize;
+                        height: $headerLogoSize;
+                        border-radius: 50%;
+                    }
+                }
+            }
+
+            .menu-btn {
+                display: flex;
+            }
+        }
+
+        .mobile-navigation {
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            flex: 1;
+
+            .nav {
+                flex-direction: column;
+                
+                a {
+                    justify-content: center;
+                    padding-top: 15px;
+                    padding-bottom: 15px;
+                    border-bottom: 1px solid #37003c;
+                }
+            }
+
+            .back-btn {
+                width: 100%;
+                padding-top: 15px;
+                padding-bottom: 15px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: white;
+            }
+        }
+    }
+}
