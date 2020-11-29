@@ -9,7 +9,7 @@
 
         <ng-container *ngTemplateOutlet="nav"></ng-container>
         <ng-container *ngTemplateOutlet="backBtn"></ng-container>
-        <button mat-icon-button class="menu-btn" [ngClass]="{'active': !mobileMenu}" (click)="toggleMobileMenu()">
+        <button mat-raised-button class="menu-btn" [color]="mobileMenu ? 'primary' : 'accent'"  (click)="toggleMobileMenu()">
             <mat-icon>{{(mobileMenu) ? 'menu' : 'close'}}</mat-icon>
         </button>
     </section>
@@ -30,7 +30,7 @@
 </ng-template>
 
 <ng-template #backBtn>
-    <button mat-icon-button class="back-btn active" #tooltip="matTooltip" matTooltip="Go Back">
+    <button mat-raised-button color="accent" class="back-btn" #tooltip="matTooltip" matTooltip="Go Back">
         <mat-icon>exit_to_app</mat-icon>
     </button>
 </ng-template>

@@ -1,6 +1,16 @@
 @import '~@angular/material/theming';
 @include mat-core();
 
+@import '../abstracts/variables.scss';
+
+// Default init --> these css variables are only for league module
+:root {
+    --leagueColorPrimary: #37003c;
+    --leagueColorAccent: #ff2882;
+    --leagueColorSecondary: #963cff;
+}
+
+// Theme for league
 .theme-english-premier-league {
     $primary-color: (
         50: #eee1ea,
@@ -73,4 +83,16 @@
     $warn:  mat-palette($mat-red);
     $theme: mat-light-theme($primary, $accent, $warn);
     @include angular-material-theme($theme);
+
+    // Change css variables for this league
+    --leagueColorPrimary: #{mat-color($primary)};
+    --leagueColorAccent: #{mat-color($accent)};
+    --leagueColorSecondary: #963cff;
+
+    // Change the selection text
+    *::selection {
+        background-color: var(--leagueColorAccent);
+        background: var(--leagueColorAccent);
+        color: $colorWhite;
+    }
 }

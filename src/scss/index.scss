@@ -1,10 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 
+// Abstracts
+@import './abstracts/variables.scss';
+
 // Themes
 @import './themes/league-themes.scss';
 
 body {
     min-height: 100vh;
+    color: $colorBlack;
+    background-color: $colorWhite;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 *, *::before, *::after {
