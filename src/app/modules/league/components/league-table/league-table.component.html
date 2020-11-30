@@ -1,0 +1,109 @@
+<div class="league-table" [ngClass]="{'table-small': tableSmall}">
+
+    <mat-toolbar [color]="(tableSmall) ? 'accent' : ''">
+        <div class="logo-name" *ngIf="(leagueInfo$ | async) as leagueInfo">
+            <img [src]="leagueInfo.logo" [alt]="leagueInfo.name">
+            <h3>{{leagueInfo.name}}</h3>
+        </div>
+    </mat-toolbar>
+
+    <table mat-table [dataSource]="tableData" class="mat-elevation-z8">
+        <!-- Column 1 -->
+        <ng-container [matColumnDef]="tableColumnsNames.position">
+            <th mat-header-cell *matHeaderCellDef class="team-position">{{(tableSmall) ? 'Pos' : tableColumnsNames.position}}</th>
+            <td mat-cell *matCellDef="let element" class="team-position">
+                <div class="content-flex">1</div>
+            </td>
+        </ng-container>
+
+        <!-- Column 2 -->
+        <ng-container [matColumnDef]="tableColumnsNames.team">
+            <th mat-header-cell *matHeaderCellDef class="team-info">{{tableColumnsNames.team}}</th>
+            <td mat-cell *matCellDef="let element" class="team-info">
+                <div class="content-flex">
+                    <app-team-logo [url]="'https://media.api-sports.io/football/teams/40.png'" [name]="'Liverpool'"></app-team-logo>
+                    <span>Name</span>
+                </div>
+            </td>
+        </ng-container>
+
+        <!-- Column 3 -->
+        <ng-container [matColumnDef]="tableColumnsNames.played">
+            <th mat-header-cell *matHeaderCellDef class="team-played">{{(tableSmall) ? 'Pl' : tableColumnsNames.played}}</th>
+            <td mat-cell *matCellDef="let element" class="team-played">
+                <div class="content-flex">10</div>
+            </td>
+        </ng-container>
+
+        <!-- Column 4 -->
+        <ng-container [matColumnDef]="tableColumnsNames.won">
+            <th mat-header-cell *matHeaderCellDef class="team-won">{{(tableSmall) ? 'W' : tableColumnsNames.won}}</th>
+            <td mat-cell *matCellDef="let element" class="team-won">
+                <div class="content-flex">10</div>
+            </td>
+        </ng-container>
+
+        <!-- Column 5 -->
+        <ng-container [matColumnDef]="tableColumnsNames.drawn">
+            <th mat-header-cell *matHeaderCellDef class="team-drawn">{{(tableSmall) ? 'D' : tableColumnsNames.drawn}}</th>
+            <td mat-cell *matCellDef="let element" class="team-drawn">
+                <div class="content-flex">10</div>
+            </td>
+        </ng-container>
+
+        <!-- Column 6 -->
+        <ng-container [matColumnDef]="tableColumnsNames.lost">
+            <th mat-header-cell *matHeaderCellDef class="team-lost">{{(tableSmall) ? 'L' : tableColumnsNames.lost}}</th>
+            <td mat-cell *matCellDef="let element" class="team-lost">
+                <div class="content-flex">10</div>
+            </td>
+        </ng-container>
+
+        <!-- Column 7 -->
+        <ng-container [matColumnDef]="tableColumnsNames.gf">
+            <th mat-header-cell *matHeaderCellDef class="team-gf">{{tableColumnsNames.gf}}</th>
+            <td mat-cell *matCellDef="let element" class="team-gf">
+                <div class="content-flex">10</div>
+            </td>
+        </ng-container>
+
+        <!-- Column 8 -->
+        <ng-container [matColumnDef]="tableColumnsNames.ga">
+            <th mat-header-cell *matHeaderCellDef class="team-ga">{{tableColumnsNames.ga}}</th>
+            <td mat-cell *matCellDef="let element" class="team-ga">
+                <div class="content-flex">10</div>
+            </td>
+        </ng-container>
+
+        <!-- Column 9 -->
+        <ng-container [matColumnDef]="tableColumnsNames.gd">
+            <th mat-header-cell *matHeaderCellDef class="team-gd">{{tableColumnsNames.gd}}</th>
+            <td mat-cell *matCellDef="let element" class="team-gd">
+                <div class="content-flex">10</div>
+            </td>
+        </ng-container>
+
+        <!-- Column 10 -->
+        <ng-container [matColumnDef]="tableColumnsNames.points">
+            <th mat-header-cell *matHeaderCellDef class="team-points">{{(tableSmall) ? 'Pts' : tableColumnsNames.points}}</th>
+            <td mat-cell *matCellDef="let element" class="team-points">
+                <div class="content-flex">10</div>
+            </td>
+        </ng-container>
+
+        <!-- Column 11 -->
+        <ng-container [matColumnDef]="tableColumnsNames.form">
+            <th mat-header-cell *matHeaderCellDef class="team-form">{{tableColumnsNames.form}}</th>
+            <td mat-cell *matCellDef="let element" class="team-form">
+                <div class="content-flex">
+                    <app-team-form [form]="form" *ngFor="let form of getSplitTeamForm('DWwwl')"></app-team-form>
+                </div>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row class="thead-tr" *matHeaderRowDef="tableColumns"></tr>
+        <tr mat-row class="tbody-tr" *matRowDef="let row; columns: tableColumns;"></tr>
+    </table>
+
+</div>
+  

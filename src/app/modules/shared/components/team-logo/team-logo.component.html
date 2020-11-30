@@ -1,0 +1,2 @@
+<img *ngIf="url" [src]="url" alt="logo" #tooltip="matTooltip" [matTooltip]="name">
+<mat-icon *ngIf="!url" #tooltip="matTooltip" [matTooltip]="name">privacy_tip</mat-icon>

@@ -24,7 +24,7 @@
 <ng-template #nav>
     <nav class="nav">
         <a matRipple>Home</a>
-        <a matRipple>Tables</a>
+        <a matRipple [routerLink]="['tables']" routerLinkActive="active">Tables</a>
         <a matRipple>Clubs</a>
     </nav>
 </ng-template>

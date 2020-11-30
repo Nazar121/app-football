@@ -1,0 +1,144 @@
+@import 'abstracts/variables.scss';
+
+.league-table {
+
+    &.table-small {
+    
+        mat-toolbar {
+            .logo-name {
+                justify-content: center;
+                color: $colorWhite;
+            
+                img {
+                    background: $colorWhite;
+                    border-radius: 50%;
+                }
+            }
+        }
+    }
+
+    &:not(.table-small) {
+        mat-toolbar {
+            background: inherit;
+        }    
+    }
+
+    mat-toolbar {
+        height: auto;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+    
+        .logo-name {
+            display: flex;
+            align-items: center;
+        
+            img {
+                display: block;
+                width: 32px;
+                height: 32px;
+                margin-right: 5px;
+            }
+        
+            h3 {
+                font-weight: bold;
+                margin: 0;
+            }
+        }
+    }
+
+    table {
+        width: 100%;
+
+        .thead-tr, .tbody-tr {
+            
+            td, th {
+                text-align: center;
+
+                &.team-position {
+                    width: 8%;
+                }
+    
+                &.team-info {
+                    width: 30%;
+                }
+    
+                &.team-played {}
+    
+                &.team-won {
+                    @media (max-width: 575.98px) {
+                        display: none;
+                    }
+                }
+    
+                &.team-drawn {
+                    @media (max-width: 575.98px) {
+                        display: none;
+                    }
+                }
+    
+                &.team-lost {
+                    @media (max-width: 575.98px) {
+                        display: none;
+                    }
+                }
+                    
+                &.team-gf {
+                    @media (max-width: 767.98px) {
+                        display: none;
+                    }
+                }
+    
+                &.team-ga {
+                    @media (max-width: 767.98px) {
+                        display: none;
+                    }
+                }
+    
+                &.team-gd {}
+    
+                &.team-points {
+                    font-weight: bold !important;
+                }
+    
+                &.team-form {
+                    width: 20%;
+                    
+                    @media (max-width: 767.98px) {
+                        display: none;
+                    }
+                }
+            }
+    
+            td {
+    
+                .content-flex {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+    
+                &.team-info {
+                    .content-flex {
+                        justify-content: start;
+                    }
+    
+                    app-team-logo {
+                        margin-right: 15px;
+                    }
+                }
+    
+                &.team-form {
+                    .content-flex {
+                        justify-content: start;
+                    }
+    
+                    app-team-form {
+                        margin: 0 2px;
+                    }
+                }
+            }
+        }
+    }
+}

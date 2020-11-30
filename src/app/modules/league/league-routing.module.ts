@@ -6,6 +6,7 @@ import { LeagueGuard } from '@core/guards/league.guard';
 
 // Components
 import { LeagueComponent } from './league.component';
+import { TablesComponent } from './pages/tables/tables.component';
 
 const routes: Routes = [
   {
@@ -13,14 +14,14 @@ const routes: Routes = [
     component: LeagueComponent,
     canActivate: [LeagueGuard],
     children: [
-      // {
-      //   path: '',
-      //   redirectTo: 'example-name'
-      // },
-      // {
-      //   path: 'example-name',
-      //   component: 
-      // }
+      {
+        path: '',
+        redirectTo: 'tables'
+      },
+      {
+        path: 'tables',
+        component: TablesComponent
+      }
     ]
   }
 ];

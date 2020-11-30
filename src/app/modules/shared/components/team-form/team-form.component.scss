@@ -1,0 +1,26 @@
+@import 'abstracts/variables.scss';
+
+.form {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-weight: 500;
+    background-color: $colorGrey;
+    color: $colorWhite;
+    cursor: help;
+
+    &.won {
+        background-color: $colorGreen;
+    }
+    
+    &.drawn {
+        background-color: $colorGrey;
+    }
+    
+    &.lost {
+        background-color: $colorRed;
+    }
+}

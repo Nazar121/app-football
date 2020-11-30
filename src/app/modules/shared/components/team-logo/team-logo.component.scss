@@ -1,0 +1,16 @@
+@import 'abstracts/variables.scss';
+
+img {
+    display: block;
+    width: 32px;
+    height: 32px;
+    cursor: help;
+}
+
+mat-icon {
+    width: auto;
+    height: auto;
+    font-size: 32px;
+    color: $colorGrey;
+    cursor: help;
+}

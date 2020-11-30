@@ -1,4 +1,4 @@
-import { LeagueInfo, RouteLeagueNameList } from '@core/interfaces/league.interface';
+import { LeagueInfo, RouteLeagueNameList, TeamForm } from '@core/interfaces/league.interface';
 
 export class CoreConstant {
     public static get VERSION(): string { return '0.0.1'; }
@@ -19,4 +19,22 @@ export class CoreConstant {
             flag: 'https://media.api-sports.io/flags/gb.svg'
         }
     ]; }
+
+    public static get TEAM_FORMS_LIST(): TeamForm[] { return [
+        {
+            form: 'W',
+            fullForm: 'Won',
+            className: 'won'
+          },
+          {
+            form: 'D',
+            fullForm: 'Drawn',
+            className: 'drawn'
+          },
+          {
+            form: 'L',
+            fullForm: 'Lost',
+            className: 'lost'
+          }
+    ] };
 }

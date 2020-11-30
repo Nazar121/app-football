@@ -12,3 +12,9 @@ export interface LeagueInfo {
 export interface RouteLeagueNameList {
     englishPremierLeague: string;
 }
+
+export interface TeamForm {
+    form: string;
+    fullForm: string;
+    className: string;
+}
