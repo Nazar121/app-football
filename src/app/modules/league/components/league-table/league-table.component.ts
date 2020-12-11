@@ -15,16 +15,16 @@ import { Observable } from 'rxjs';
 import { LeagueInfo } from '@core/interfaces/league.interface';
 
 export interface TableColumnsNames {
-  position: string;
-  team: string;
-  played: string;
-  gd: string;
-  points: string;
-  won?: string;
-  drawn?: string;
-  lost?: string;
-  gf?: string;
-  ga?: string;
+  position: string | number;
+  team: string | any;
+  played: string | number;
+  gd: string | number;
+  points: string | number;
+  won?: string | number;
+  drawn?: string | number;
+  lost?: string | number;
+  gf?: string | number;
+  ga?: string | number;
   form?: string;
 };
 
@@ -37,6 +37,7 @@ export class LeagueTableComponent implements OnInit {
   @Input() tableSmall: boolean = false;
 
   public leagueInfo$: Observable<LeagueInfo>;
+  public leagueTable: any[] = [];
 
   public tableColumnsNames: TableColumnsNames = {
     position: 'Position',
@@ -52,18 +53,19 @@ export class LeagueTableComponent implements OnInit {
     form: 'Form'
   };
   public tableColumns: string[] = [];
-  public tableData: any[] = [{}, {}, {}];
+  public tableData: TableColumnsNames[] = [];
 
   constructor(private store: Store) { }
 
   ngOnInit(): void {
     this.leagueInfo$ = this.store.pipe(select(LeagueSelectors.selectLeagueInfo));
-    this.setTableColumns();
 
-    // this.store.dispatch(LeagueActions.fetchLeagueTable({payload: {season: 2020, league: 39}}));
-    // this.store.pipe(select(LeagueSelectors.selectLeagueTable)).subscribe(res => {
-    //   console.log('res ', res);
-    // });
+    this.store.dispatch(LeagueActions.fetchLeagueTable({payload: {season: 2020, league: 39}}));
+    this.store.pipe(select(LeagueSelectors.selectLeagueTable)).subscribe(res => {
+      this.leagueTable = res.data;
+      this.setTableColumns();
+      this.setTableData();
+    });
   }
 
   setTableColumns() {
@@ -81,7 +83,30 @@ export class LeagueTableComponent implements OnInit {
     }
 
     // Set table columns
+    this.tableColumns = [];
     Object.entries(tableColumnsNamesFiltered).forEach(([key, value]) => this.tableColumns.push(value) );
+  }
+
+  setTableData() {
+    if (!this.leagueTable || !this.leagueTable.length) { return false; }
+
+    let propertyName = 'all'; // all | home | away
+    this.tableData = this.leagueTable.map(item => {
+      let tableItem = {...this.tableColumnsNames};
+      tableItem.position = item['rank'];
+      tableItem.team = item['team'];
+      tableItem.played = item[propertyName].played;
+      tableItem.won = item[propertyName].win;
+      tableItem.drawn = item[propertyName].draw;
+      tableItem.lost = item[propertyName].lose;
+      tableItem.gf = item[propertyName].goals.for;
+      tableItem.ga = item[propertyName].goals.against;
+      tableItem.gd = (+tableItem.gf) - (+tableItem.ga);
+      tableItem.points = item['points'];
+      tableItem.form = item['form'];
+
+      return tableItem;
+    });
   }
 
   getSplitTeamForm(teamForm: string): string[] {

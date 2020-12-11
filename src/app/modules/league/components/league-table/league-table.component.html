@@ -12,7 +12,7 @@
         <ng-container [matColumnDef]="tableColumnsNames.position">
             <th mat-header-cell *matHeaderCellDef class="team-position">{{(tableSmall) ? 'Pos' : tableColumnsNames.position}}</th>
             <td mat-cell *matCellDef="let element" class="team-position">
-                <div class="content-flex">1</div>
+                <div class="content-flex">{{element.position}}</div>
             </td>
         </ng-container>
 
@@ -21,8 +21,8 @@
             <th mat-header-cell *matHeaderCellDef class="team-info">{{tableColumnsNames.team}}</th>
             <td mat-cell *matCellDef="let element" class="team-info">
                 <div class="content-flex">
-                    <app-team-logo [url]="'https://media.api-sports.io/football/teams/40.png'" [name]="'Liverpool'"></app-team-logo>
-                    <span>Name</span>
+                    <app-team-logo [url]="element.team.logo" [name]="element.team.name"></app-team-logo>
+                    <span>{{element.team.name}}</span>
                 </div>
             </td>
         </ng-container>
@@ -31,7 +31,7 @@
         <ng-container [matColumnDef]="tableColumnsNames.played">
             <th mat-header-cell *matHeaderCellDef class="team-played">{{(tableSmall) ? 'Pl' : tableColumnsNames.played}}</th>
             <td mat-cell *matCellDef="let element" class="team-played">
-                <div class="content-flex">10</div>
+                <div class="content-flex">{{element.played}}</div>
             </td>
         </ng-container>
 
@@ -39,7 +39,7 @@
         <ng-container [matColumnDef]="tableColumnsNames.won">
             <th mat-header-cell *matHeaderCellDef class="team-won">{{(tableSmall) ? 'W' : tableColumnsNames.won}}</th>
             <td mat-cell *matCellDef="let element" class="team-won">
-                <div class="content-flex">10</div>
+                <div class="content-flex">{{element.won}}</div>
             </td>
         </ng-container>
 
@@ -47,7 +47,7 @@
         <ng-container [matColumnDef]="tableColumnsNames.drawn">
             <th mat-header-cell *matHeaderCellDef class="team-drawn">{{(tableSmall) ? 'D' : tableColumnsNames.drawn}}</th>
             <td mat-cell *matCellDef="let element" class="team-drawn">
-                <div class="content-flex">10</div>
+                <div class="content-flex">{{element.drawn}}</div>
             </td>
         </ng-container>
 
@@ -55,7 +55,7 @@
         <ng-container [matColumnDef]="tableColumnsNames.lost">
             <th mat-header-cell *matHeaderCellDef class="team-lost">{{(tableSmall) ? 'L' : tableColumnsNames.lost}}</th>
             <td mat-cell *matCellDef="let element" class="team-lost">
-                <div class="content-flex">10</div>
+                <div class="content-flex">{{element.lost}}</div>
             </td>
         </ng-container>
 
@@ -63,7 +63,7 @@
         <ng-container [matColumnDef]="tableColumnsNames.gf">
             <th mat-header-cell *matHeaderCellDef class="team-gf">{{tableColumnsNames.gf}}</th>
             <td mat-cell *matCellDef="let element" class="team-gf">
-                <div class="content-flex">10</div>
+                <div class="content-flex">{{element.gf}}</div>
             </td>
         </ng-container>
 
@@ -71,7 +71,7 @@
         <ng-container [matColumnDef]="tableColumnsNames.ga">
             <th mat-header-cell *matHeaderCellDef class="team-ga">{{tableColumnsNames.ga}}</th>
             <td mat-cell *matCellDef="let element" class="team-ga">
-                <div class="content-flex">10</div>
+                <div class="content-flex">{{element.ga}}</div>
             </td>
         </ng-container>
 
@@ -79,7 +79,7 @@
         <ng-container [matColumnDef]="tableColumnsNames.gd">
             <th mat-header-cell *matHeaderCellDef class="team-gd">{{tableColumnsNames.gd}}</th>
             <td mat-cell *matCellDef="let element" class="team-gd">
-                <div class="content-flex">10</div>
+                <div class="content-flex">{{element.gd}}</div>
             </td>
         </ng-container>
 
@@ -87,7 +87,7 @@
         <ng-container [matColumnDef]="tableColumnsNames.points">
             <th mat-header-cell *matHeaderCellDef class="team-points">{{(tableSmall) ? 'Pts' : tableColumnsNames.points}}</th>
             <td mat-cell *matCellDef="let element" class="team-points">
-                <div class="content-flex">10</div>
+                <div class="content-flex">{{element.points}}</div>
             </td>
         </ng-container>
 
@@ -96,7 +96,7 @@
             <th mat-header-cell *matHeaderCellDef class="team-form">{{tableColumnsNames.form}}</th>
             <td mat-cell *matCellDef="let element" class="team-form">
                 <div class="content-flex">
-                    <app-team-form [form]="form" *ngFor="let form of getSplitTeamForm('DWwwl')"></app-team-form>
+                    <app-team-form [form]="form" *ngFor="let form of getSplitTeamForm(element.form)"></app-team-form>
                 </div>
             </td>
         </ng-container>

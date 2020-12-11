@@ -25,7 +25,9 @@ export class LeagueService {
       .pipe(
         map((res) => {     
           if (!res['response'] || !res['response'].length) { throw new Error('Data are not available'); }
-          return res['response'][0].league.standings;
+          return (res['response'][0].league.standings && res['response'][0].league.standings.length)
+            ? res['response'][0].league.standings[0]
+            : [];
         })
       );
   }
