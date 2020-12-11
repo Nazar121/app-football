@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-// Store
+// Redux
 import { Store, select } from '@ngrx/store';
+import * as LeagueActions from '@core/core-store/league/league.actions';
 import * as LeagueSelectors from '@core/core-store/league/league.selectors';
 
 // Constants
@@ -37,7 +38,6 @@ export class LeagueTableComponent implements OnInit {
 
   public leagueInfo$: Observable<LeagueInfo>;
 
-  public tableColumnsNamesFiltered: TableColumnsNames;
   public tableColumnsNames: TableColumnsNames = {
     position: 'Position',
     team: 'Team',
@@ -59,11 +59,17 @@ export class LeagueTableComponent implements OnInit {
   ngOnInit(): void {
     this.leagueInfo$ = this.store.pipe(select(LeagueSelectors.selectLeagueInfo));
     this.setTableColumns();
+
+    // this.store.dispatch(LeagueActions.fetchLeagueTable({payload: {season: 2020, league: 39}}));
+    // this.store.pipe(select(LeagueSelectors.selectLeagueTable)).subscribe(res => {
+    //   console.log('res ', res);
+    // });
   }
 
   setTableColumns() {
+    let tableColumnsNamesFiltered: TableColumnsNames;
     if (this.tableSmall) { // Show small table
-      this.tableColumnsNamesFiltered = {
+      tableColumnsNamesFiltered = {
         position: this.tableColumnsNames.position,
         team: this.tableColumnsNames.team,
         played: this.tableColumnsNames.played,
@@ -71,11 +77,11 @@ export class LeagueTableComponent implements OnInit {
         points: this.tableColumnsNames.points
       };
     } else { // Show full table
-      this.tableColumnsNamesFiltered = { ...this.tableColumnsNames };
+      tableColumnsNamesFiltered = { ...this.tableColumnsNames };
     }
 
     // Set table columns
-    Object.entries(this.tableColumnsNamesFiltered).forEach(([key, value]) => this.tableColumns.push(value) );
+    Object.entries(tableColumnsNamesFiltered).forEach(([key, value]) => this.tableColumns.push(value) );
   }
 
   getSplitTeamForm(teamForm: string): string[] {

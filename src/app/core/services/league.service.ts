@@ -23,9 +23,9 @@ export class LeagueService {
     };
     return this.http.get(`${this.footballAPI.apiUrl}/standings`, {params})
       .pipe(
-        map((res) => {        
-          if (!res['response'].length) { throw new Error('Data are not available'); }
-          return res['response'][0].league;
+        map((res) => {     
+          if (!res['response'] || !res['response'].length) { throw new Error('Data are not available'); }
+          return res['response'][0].league.standings;
         })
       );
   }

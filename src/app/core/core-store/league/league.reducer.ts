@@ -37,7 +37,7 @@ export const LeagueReducer = createReducer(
         leagueInfo: (action.payload) ? {...action.payload} : null
     })),
     // LeagueTable
-    on(LeagueActions.fetchLeagueTable, (state) => ({
+    on(LeagueActions.fetchLeagueTable, (state, action: LeagueAction) => ({
         ...state,
     })),
     on(LeagueActions.fetchLeagueTableSuccess, (state, action: LeagueAction) => ({

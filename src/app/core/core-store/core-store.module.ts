@@ -13,6 +13,9 @@ import { ActionReducerMap } from '@ngrx/store';
 // Reducers
 import { LEAGUE_FEATURE_KEY, LeagueReducer, LeagueState } from './league/league.reducer';
 
+// Effects
+import { LeagueEffects } from './league/league.effects';
+
 export interface CoreState {
   [LEAGUE_FEATURE_KEY]: LeagueState;
 }
@@ -28,7 +31,7 @@ export const coreStoreReducers: ActionReducerMap<CoreState, any> = {
     // Redux
     StoreModule.forRoot(coreStoreReducers, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([])
+    EffectsModule.forRoot([LeagueEffects])
   ]
 })
 export class CoreStoreModule { }
