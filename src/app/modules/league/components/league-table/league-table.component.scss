@@ -19,8 +19,25 @@
 
     &:not(.table-small) {
         mat-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             background: inherit;
+
+            form {
+                mat-label {
+                    color: var(--leagueColorAccent, $colorBlack);
+                }
+            }
         }    
+    }
+
+    .color-green {
+        color: $colorGreen;
+    }
+
+    .color-red {
+        color: $colorRed;
     }
 
     mat-toolbar {

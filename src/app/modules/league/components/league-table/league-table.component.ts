@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 // Redux
 import { Store, select } from '@ngrx/store';
@@ -10,6 +11,7 @@ import { CoreConstant } from '@core/constants/core.constant';
 
 // Libs
 import { Observable } from 'rxjs';
+import * as _ from 'lodash'; 
 
 // Interfaces
 import { LeagueInfo } from '@core/interfaces/league.interface';
@@ -27,6 +29,11 @@ export interface TableColumnsNames {
   ga?: string | number;
   form?: string;
 };
+
+export interface PlayedMatchesItem {
+  title: string;
+  propertyName: string;
+}
 
 @Component({
   selector: 'app-league-table',
@@ -55,15 +62,42 @@ export class LeagueTableComponent implements OnInit {
   public tableColumns: string[] = [];
   public tableData: TableColumnsNames[] = [];
 
-  constructor(private store: Store) { }
+  public formFilter: FormGroup;
+  public playedMatchesList: PlayedMatchesItem[] = [
+    {
+      title: 'All Matches',
+      propertyName: 'all'
+    },
+    {
+      title: 'Home',
+      propertyName: 'home'
+    },
+    {
+      title: 'Away',
+      propertyName: 'away'
+    }
+  ];
+
+  constructor(
+    private store: Store,
+    private fb: FormBuilder,
+  ) {
+    this.formFilter = this.fb.group({
+      playedMatches: [this.playedMatchesList[0]]
+    });
+  }
 
   ngOnInit(): void {
     this.leagueInfo$ = this.store.pipe(select(LeagueSelectors.selectLeagueInfo));
 
-    this.store.dispatch(LeagueActions.fetchLeagueTable({payload: {season: 2020, league: 39}}));
-    this.store.pipe(select(LeagueSelectors.selectLeagueTable)).subscribe(res => {
-      this.leagueTable = res.data;
-      this.setTableColumns();
+    // this.store.dispatch(LeagueActions.fetchLeagueTable({payload: {season: 2020, league: 39}}));
+    // this.store.pipe(select(LeagueSelectors.selectLeagueTable)).subscribe(res => {
+    //   this.leagueTable = res.data;
+    //   this.setTableColumns();
+    //   this.setTableData();
+    // });
+
+    this.formFilter.get('playedMatches').valueChanges.subscribe((value: PlayedMatchesItem) => {
       this.setTableData();
     });
   }
@@ -90,23 +124,32 @@ export class LeagueTableComponent implements OnInit {
   setTableData() {
     if (!this.leagueTable || !this.leagueTable.length) { return false; }
 
-    let propertyName = 'all'; // all | home | away
+    let propertyName: string = this.formFilter.get('playedMatches').value.propertyName; // all | home | away
+
     this.tableData = this.leagueTable.map(item => {
       let tableItem = {...this.tableColumnsNames};
-      tableItem.position = item['rank'];
+      tableItem.position = +item['rank'];
       tableItem.team = item['team'];
-      tableItem.played = item[propertyName].played;
-      tableItem.won = item[propertyName].win;
-      tableItem.drawn = item[propertyName].draw;
-      tableItem.lost = item[propertyName].lose;
-      tableItem.gf = item[propertyName].goals.for;
-      tableItem.ga = item[propertyName].goals.against;
+      tableItem.played = +item[propertyName].played;
+      tableItem.won = +item[propertyName].win;
+      tableItem.drawn = +item[propertyName].draw;
+      tableItem.lost = +item[propertyName].lose;
+      tableItem.gf = +item[propertyName].goals.for;
+      tableItem.ga = +item[propertyName].goals.against;
       tableItem.gd = (+tableItem.gf) - (+tableItem.ga);
-      tableItem.points = item['points'];
+      tableItem.points = (tableItem.won * 3) + (tableItem.drawn * 1);
       tableItem.form = item['form'];
 
       return tableItem;
     });
+
+    if (propertyName === 'home' || propertyName === 'away') {
+      this.tableData = _.orderBy(this.tableData, ['points','gd'], ['desc', 'desc']);
+      this.tableData = this.tableData.map((item, index) => {
+        item.position = index + 1;
+        return item;
+      });
+    }
   }
 
   getSplitTeamForm(teamForm: string): string[] {

@@ -5,6 +5,15 @@
             <img [src]="leagueInfo.logo" [alt]="leagueInfo.name">
             <h3>{{leagueInfo.name}}</h3>
         </div>
+
+        <form [formGroup]="formFilter" *ngIf="!tableSmall">
+            <mat-form-field color="accent">
+                <mat-label>Filter by Home or Away</mat-label>
+                <mat-select formControlName="playedMatches">
+                    <mat-option *ngFor="let item of playedMatchesList" [value]="item">{{item.title}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
     </mat-toolbar>
 
     <table mat-table [dataSource]="tableData" class="mat-elevation-z8">
@@ -79,7 +88,7 @@
         <ng-container [matColumnDef]="tableColumnsNames.gd">
             <th mat-header-cell *matHeaderCellDef class="team-gd">{{tableColumnsNames.gd}}</th>
             <td mat-cell *matCellDef="let element" class="team-gd">
-                <div class="content-flex">{{element.gd}}</div>
+                <div class="content-flex" [ngClass]="{'color-green': (element.gd > 0), 'color-red': (element.gd < 0)}">{{(element.gd > 0) ? '+' : ''}}{{element.gd}}</div>
             </td>
         </ng-container>
 
