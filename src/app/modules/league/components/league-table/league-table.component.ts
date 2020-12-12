@@ -10,7 +10,6 @@ import * as LeagueSelectors from '@core/core-store/league/league.selectors';
 import { CoreConstant } from '@core/constants/core.constant';
 
 // Libs
-import { Observable } from 'rxjs';
 import * as _ from 'lodash'; 
 
 // Interfaces
@@ -35,6 +34,11 @@ export interface PlayedMatchesItem {
   propertyName: string;
 }
 
+export interface SeasonItem {
+  title: string;
+  season: number;
+}
+
 @Component({
   selector: 'app-league-table',
   templateUrl: './league-table.component.html',
@@ -43,7 +47,7 @@ export interface PlayedMatchesItem {
 export class LeagueTableComponent implements OnInit {
   @Input() tableSmall: boolean = false;
 
-  public leagueInfo$: Observable<LeagueInfo>;
+  public leagueInfo: LeagueInfo;
   public leagueTable: any[] = [];
 
   public tableColumnsNames: TableColumnsNames = {
@@ -77,28 +81,61 @@ export class LeagueTableComponent implements OnInit {
       propertyName: 'away'
     }
   ];
+  public seasonList: SeasonItem[] = [
+    {
+      title: '2020/2021',
+      season: 2020
+    },
+    {
+      title: '2019/2020',
+      season: 2019
+    },
+    {
+      title: '2018/2019',
+      season: 2018
+    },
+    {
+      title: '2017/2018',
+      season: 2017
+    },
+    {
+      title: '2016/2017',
+      season: 2016
+    },
+    {
+      title: '2015/2016',
+      season: 2015
+    },
+  ];
 
   constructor(
     private store: Store,
     private fb: FormBuilder,
   ) {
     this.formFilter = this.fb.group({
-      playedMatches: [this.playedMatchesList[0]]
+      playedMatches: [this.playedMatchesList[0]],
+      season: [this.seasonList[0]],
     });
   }
 
   ngOnInit(): void {
-    this.leagueInfo$ = this.store.pipe(select(LeagueSelectors.selectLeagueInfo));
+    this.store.pipe(select(LeagueSelectors.selectLeagueInfo)).subscribe((res: LeagueInfo) => {
+      this.leagueInfo = res;
+      this.store.dispatch(LeagueActions.fetchLeagueTable({payload: {season: this.formFilter.get('season').value.season, league: this.leagueInfo.id}}));
+    });
 
-    // this.store.dispatch(LeagueActions.fetchLeagueTable({payload: {season: 2020, league: 39}}));
-    // this.store.pipe(select(LeagueSelectors.selectLeagueTable)).subscribe(res => {
-    //   this.leagueTable = res.data;
-    //   this.setTableColumns();
-    //   this.setTableData();
-    // });
+    this.store.pipe(select(LeagueSelectors.selectLeagueTable)).subscribe(res => {
+      this.leagueTable = res.data;
+      this.setTableColumns();
+      this.setTableData();
+    });
 
     this.formFilter.get('playedMatches').valueChanges.subscribe((value: PlayedMatchesItem) => {
       this.setTableData();
+    });
+
+    this.formFilter.get('season').valueChanges.subscribe((value: SeasonItem) => {
+      this.store.dispatch(LeagueActions.fetchLeagueTable({payload: {season: this.formFilter.get('season').value.season, league: this.leagueInfo.id, forceLoad: true}}));
     });
   }
 
@@ -156,5 +193,17 @@ export class LeagueTableComponent implements OnInit {
     if (typeof teamForm !== 'string') { return []; }
     let res = teamForm.split('');
     return res.filter((value) => CoreConstant.TEAM_FORMS_LIST.find((formInfo) => formInfo.form.toUpperCase() === value.toUpperCase()) );
+  }
+
+  resetFormFilter() {
+    // season
+    let seasonItem: SeasonItem = this.formFilter.get('season').value;
+    let seasonEmit = (seasonItem && seasonItem.title !== this.seasonList[0].title);
+    this.formFilter.get('season').setValue(this.seasonList[0], {emitEvent: seasonEmit});
+
+    // playedMatches
+    let playedMatchesItem: PlayedMatchesItem = this.formFilter.get('playedMatches').value;
+    let playedMatchesEmit = (playedMatchesItem && playedMatchesItem.title !== this.playedMatchesList[0].title);
+    this.formFilter.get('playedMatches').setValue(this.playedMatchesList[0], {emitEvent: playedMatchesEmit});
   }
 }

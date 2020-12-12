@@ -25,8 +25,18 @@
             background: inherit;
 
             form {
+                & > *:not(:last-of-type) {
+                    margin-right: 15px;
+                }
+
                 mat-label {
                     color: var(--leagueColorAccent, $colorBlack);
+                }
+
+                mat-icon {
+                    width: auto;
+                    height: auto;
+                    font-size: 30px;
                 }
             }
         }    

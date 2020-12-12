@@ -1,18 +1,29 @@
-<div class="league-table" [ngClass]="{'table-small': tableSmall}">
+<div class="league-table" [ngClass]="{'table-small': tableSmall}" *ngIf="leagueInfo">
 
     <mat-toolbar [color]="(tableSmall) ? 'accent' : ''">
-        <div class="logo-name" *ngIf="(leagueInfo$ | async) as leagueInfo">
+        <div class="logo-name">
             <img [src]="leagueInfo.logo" [alt]="leagueInfo.name">
             <h3>{{leagueInfo.name}}</h3>
         </div>
 
         <form [formGroup]="formFilter" *ngIf="!tableSmall">
             <mat-form-field color="accent">
+                <mat-label>Filter by Season</mat-label>
+                <mat-select formControlName="season">
+                    <mat-option *ngFor="let item of seasonList" [value]="item">{{item.title}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            
+            <mat-form-field color="accent">
                 <mat-label>Filter by Home or Away</mat-label>
                 <mat-select formControlName="playedMatches">
                     <mat-option *ngFor="let item of playedMatchesList" [value]="item">{{item.title}}</mat-option>
                 </mat-select>
             </mat-form-field>
+
+            <button mat-icon-button color="accent" aria-label="Reset Filters"  #tooltip="matTooltip" matTooltip="Reset Filters" (click)="resetFormFilter()">
+                <mat-icon>autorenew</mat-icon>
+            </button>
         </form>
     </mat-toolbar>
 
